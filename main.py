@@ -49,7 +49,7 @@ if __name__ == '__main__':
     read_network("./dataset/" + files[fid])
 
     if algs[aid] == "OFFLINE":
-            baseline.offline()
+        baseline.offline()
     else:
         # simulate the general vertex arrival: the vertex comes with edges to previous neighbors
         stream = list(graph.keys())  # random vertex streaming
