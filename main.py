@@ -1,3 +1,4 @@
+
 import numpy as np
 from config import graph,match,x,y
 import sys
@@ -7,7 +8,13 @@ import alg1
 import alg2
 import alg3
 
-
+import logging
+# Create and configure logger
+logging.basicConfig(stream=sys.stdout,
+                    level=logging.DEBUG,
+                    format='%(asctime)s %(message)s')
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 
 def read_network(fname):
     global x, y, graph
@@ -55,7 +62,6 @@ if __name__ == '__main__':
         stream = list(graph.keys())  # random vertex streaming
         random.shuffle(stream)
         arrived = []  # already arrived vertex
-        match = []  # result
         while len(stream) != 0:
             vertex = stream.pop()  # get next vertex
             # get previous neighbors of current vertex
@@ -73,3 +79,6 @@ if __name__ == '__main__':
             else:
                 exit(-1)
             arrived.append(vertex)
+
+    # for debug
+    logger.debug("#Matched: %d tuples: %s" % (len(match), match))
