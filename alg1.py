@@ -41,7 +41,7 @@ def alg1(v, ngbrs, beta=2.0, k=1):
     # Constraints:
     t.setInitialValue(1.)
     # add the max(t-y[0],0)
-    lhs = p.lpSum([t - y[u] if t.value()>y[u] else 0 for u in ngbrs])
+    lhs = p.lpSum([t - y[u] if t.value() > y[u] else 0 for u in ngbrs])
     # todo: only take k=1 here
     rhs = p.LpAffineExpression((1 - t))
     Lp_prob += lhs <= rhs
