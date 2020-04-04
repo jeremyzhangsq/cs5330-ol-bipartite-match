@@ -1,4 +1,4 @@
-from config import graph,match,x, y
+from config import graph, match, x, y
 import pulp as p
 
 '''
@@ -8,10 +8,12 @@ theta: input parameter
 k: function constant parameter
 '''
 
+
 def f(theta, k=1):
-    a = ((1+k)/2.0-theta)**((1+k)/(2.0*k))
-    b = (theta+(k-1)/2.0)**((k-1)/(2.0*k))
-    return a*b
+    a = ((1 + k) / 2.0 - theta) ** ((1 + k) / (2.0 * k))
+    b = (theta + (k - 1) / 2.0) ** ((k - 1) / (2.0 * k))
+    return a * b
+
 
 """
 :param
@@ -24,8 +26,10 @@ https://www.geeksforgeeks.org/python-linear-programming-in-pulp/
 :return
 x,y
 """
-def alg1(v,ngbrs,beta=2.0,k=1):
-    global x,y
+
+
+def alg1(v, ngbrs, beta=2.0, k=1):
+    global x, y
     # Create a LP Minimization problem
     Lp_prob = p.LpProblem('Problem', p.LpMaximize)
 
@@ -36,10 +40,10 @@ def alg1(v,ngbrs,beta=2.0,k=1):
     Lp_prob += t
     # Constraints:
     t.setInitialValue(1.)
-    # todo: how to add the max(t-y[0],0)
-    lhs = p.lpSum([ t - y[u] for u in ngbrs])
+    # add the max(t-y[0],0)
+    lhs = p.lpSum([t - y[u] if t.value()>y[u] else 0 for u in ngbrs])
     # todo: only take k=1 here
-    rhs = p.LpAffineExpression((1-t))
+    rhs = p.LpAffineExpression((1 - t))
     Lp_prob += lhs <= rhs
 
     # Display the problem
@@ -54,8 +58,8 @@ def alg1(v,ngbrs,beta=2.0,k=1):
     theta = t.value()
     # update x,y array
     for u in ngbrs:
-        val = (max(theta-y[u],0)/beta)*(1+(1-theta)/f(theta))
-        x[(u,v)] = val
-        x[(v,u)] = val
+        val = (max(theta - y[u], 0) / beta) * (1 + (1 - theta) / f(theta))
+        x[(u, v)] = val
+        x[(v, u)] = val
         y[u] = max(y[u], theta)
     y[v] = 1 - theta

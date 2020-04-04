@@ -5,7 +5,7 @@ import numpy as np
 
 
 def alg2(vertex, neighbors):
-
+    if not len(neighbors):
+        return
     alg1.alg1(vertex,neighbors)
-
     pass
