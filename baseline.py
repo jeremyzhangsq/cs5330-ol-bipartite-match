@@ -1,7 +1,7 @@
 import random
+from config import graph,match,x,y
 
-
-def greedy(vertex, neighbors, graph, match):
+def greedy(vertex, neighbors):
     if len(neighbors) != 0:
         selectedVertex = random.choice(neighbors)
         neighbors.remove(selectedVertex)
@@ -9,9 +9,9 @@ def greedy(vertex, neighbors, graph, match):
         match.append(match_pair)
 
 
-def rank(vertex, neighbors, graph, match):
+def rank(vertex, neighbors):
     pass
 
 
-def offline(vertex, neighbors, graph, match):
+def offline():
     pass
