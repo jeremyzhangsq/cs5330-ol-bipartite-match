@@ -47,7 +47,7 @@ if __name__ == '__main__':
     stream = list(graph.keys())  # random vertex streaming
     random.shuffle(stream)
     arrived = []  # already arrived vertex
-    matches = []  # result
+    match = []  # result
     while len(stream) != 0:
         vertex = stream.pop()  # get next vertex
         # get previous neighbors of current vertex
