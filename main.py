@@ -61,7 +61,7 @@ if __name__ == '__main__':
             # get previous neighbors of current vertex
             neighbors = list(set(graph[vertex]).intersection(arrived))
             # main subroutine:
-            # args: coming vertex, its previous neighbors, the whole graph(if needed) and result match list
+            # args: coming vertex, its previous neighbors
             if algs[aid] == "GREEDY":
                 baseline.greedy(vertex, neighbors)
             elif algs[aid] == "RANK":
