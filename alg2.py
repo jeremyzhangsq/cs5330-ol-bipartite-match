@@ -5,4 +5,7 @@ import numpy as np
 
 
 def alg2(vertex, neighbors):
+
+    alg1.alg1(vertex,neighbors)
+
     pass
