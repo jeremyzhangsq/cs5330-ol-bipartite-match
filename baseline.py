@@ -1,10 +1,10 @@
+from config import graph,match,x,y
 
-
-def greedy(vertex, neighbors, graph, match):
+def greedy(vertex, neighbors):
     pass
 
-def rank(vertex, neighbors, graph, match):
+def rank(vertex, neighbors):
     pass
 
-def offline(vertex, neighbors, graph, match):
+def offline():
     pass
