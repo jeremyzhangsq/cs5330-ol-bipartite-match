@@ -50,10 +50,19 @@ def alg3(graph, stream, sqrt_epsilon):
         arrived_vertex.append(v)
 
 
-def main_alg3(graph, stream):
-    # get global solution: x, y
-    alg1.alg1(graph, stream)
-    # run alg3
-    k = 1.1997
+def main_alg3(graph, stream, k=1.1997):
     epsilon = (k - 1) /2
+    beta = 2 - epsilon
+
+    # get global solution: x, y
+
+    arrived_vertex = []  # already arrived vertex
+    for i in range(len(stream)):
+        v = stream[i]
+        neighbor_v = list(set(graph[v]).intersection(arrived_vertex))
+        alg1.alg1(v, neighbor_v, k=k)
+        arrived_vertex.append(v)
+
+    alg1.alg1(graph, stream, beta=beta, k=k)
+    # run alg3
     alg3(graph, stream, math.sqrt(epsilon))

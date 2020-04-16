@@ -64,23 +64,27 @@ if __name__ == '__main__':
         random.seed(1)
         random.shuffle(stream)
         arrived = []  # already arrived vertex
-        while len(stream) != 0:
-            vertex = stream.pop()  # get next vertex
-            # get previous neighbors of current vertex
-            neighbors = list(set(graph[vertex]).intersection(arrived))
-            # main subroutine:
-            # args: coming vertex, its previous neighbors
-            if algs[aid] == "GREEDY":
-                baseline.greedy(vertex, neighbors)
-            elif algs[aid] == "RANK":
-                baseline.rank(vertex, neighbors)
-            elif algs[aid] == "ALG2":
-                alg2.alg2(vertex, neighbors)
-            elif algs[aid] == "ALG3":
-                alg3.alg3(vertex, neighbors)
-            else:
-                exit(-1)
-            arrived.append(vertex)
+
+        if algs[aid] == "ALG3":
+            alg3.main_alg3(graph, stream)
+        else:
+            while len(stream) != 0:
+                vertex = stream.pop()  # get next vertex
+                # get previous neighbors of current vertex
+                neighbors = list(set(graph[vertex]).intersection(arrived))
+                # main subroutine:
+                # args: coming vertex, its previous neighbors
+                if algs[aid] == "GREEDY":
+                    baseline.greedy(vertex, neighbors)
+                elif algs[aid] == "RANK":
+                    baseline.rank(vertex, neighbors)
+                elif algs[aid] == "ALG2":
+                    alg2.alg2(vertex, neighbors)
+                elif algs[aid] == "ALG3":
+                    alg3.alg3(vertex, neighbors)
+                else:
+                    exit(-1)
+                arrived.append(vertex)
 
     # for debug
     logger.debug("#Matched: %d tuples: %s" % (len(match), match))
