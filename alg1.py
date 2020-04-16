@@ -12,7 +12,8 @@ k: function constant parameter
 def f(theta, k=1):
     a = ((1 + k) / 2.0 - theta) ** ((1 + k) / (2.0 * k))
     b = (theta + (k - 1) / 2.0) ** ((k - 1) / (2.0 * k))
-    return a * b
+    print('f: %f %f %f %f'%(a, b, k, theta))
+    return a * b + 1e-7
 
 
 """
@@ -31,6 +32,7 @@ x,y
 def alg1(v, ngbrs, beta=2.0, k=1):
     global x, y
     # Create a LP Minimization problem
+    print('alg1 beta: %f k: %f'%(beta, k))
     Lp_prob = p.LpProblem('Problem', p.LpMaximize)
 
     # Create problem Variables
@@ -58,7 +60,7 @@ def alg1(v, ngbrs, beta=2.0, k=1):
     theta = t.value()
     # update x,y array
     for u in ngbrs:
-        val = (max(theta - y[u], 0) / beta) * (1 + (1 - theta) / f(theta))
+        val = (max(theta - y[u], 0) / beta) * (1 + (1 - theta) / f(theta, k=k))
         x[(u, v)] = val
         x[(v, u)] = val
         y[u] = max(y[u], theta)

@@ -66,7 +66,7 @@ if __name__ == '__main__':
         arrived = []  # already arrived vertex
 
         if algs[aid] == "ALG3":
-            alg3.main_alg3(graph, stream)
+            alg3.main_alg3(graph, stream, k=1)
         else:
             while len(stream) != 0:
                 vertex = stream.pop()  # get next vertex

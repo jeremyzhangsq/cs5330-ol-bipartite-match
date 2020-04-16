@@ -55,6 +55,7 @@ def main_alg3(graph, stream, k=1.1997):
     beta = 2 - epsilon
 
     # get global solution: x, y
+    print('%f %f %f'%(k, beta, epsilon))
 
     arrived_vertex = []  # already arrived vertex
     for i in range(len(stream)):
