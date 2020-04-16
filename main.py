@@ -1,4 +1,3 @@
-
 import numpy as np
 from config import graph,match,x,y
 import sys
@@ -41,6 +40,7 @@ def read_network(fname):
             y[groupid] = 0
         else:
             graph[groupid].append(userid)
+    f.close()
 
 
 
