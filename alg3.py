@@ -54,4 +54,6 @@ def main_alg3(graph, stream):
     # get global solution: x, y
     alg1.alg1(graph, stream)
     # run alg3
-    alg3(graph, stream)
+    k = 1.1997
+    epsilon = (k - 1) /2
+    alg3(graph, stream, math.sqrt(epsilon))
