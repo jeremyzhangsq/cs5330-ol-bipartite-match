@@ -60,9 +60,8 @@ def main_alg3(graph, stream, k=1.1997):
     for i in range(len(stream)):
         v = stream[i]
         neighbor_v = list(set(graph[v]).intersection(arrived_vertex))
-        alg1.alg1(v, neighbor_v, k=k)
+        alg1.alg1(v, neighbor_v, beta=beta, k=k)
         arrived_vertex.append(v)
 
-    alg1.alg1(graph, stream, beta=beta, k=k)
     # run alg3
     alg3(graph, stream, math.sqrt(epsilon))

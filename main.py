@@ -80,8 +80,6 @@ if __name__ == '__main__':
                     baseline.rank(vertex, neighbors)
                 elif algs[aid] == "ALG2":
                     alg2.alg2(vertex, neighbors)
-                elif algs[aid] == "ALG3":
-                    alg3.alg3(vertex, neighbors)
                 else:
                     exit(-1)
                 arrived.append(vertex)
