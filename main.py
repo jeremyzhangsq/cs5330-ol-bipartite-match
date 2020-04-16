@@ -60,6 +60,8 @@ if __name__ == '__main__':
     else:
         # simulate the general vertex arrival: the vertex comes with edges to previous neighbors
         stream = list(graph.keys())  # random vertex streaming
+        # fix seed here
+        random.seed(1)
         random.shuffle(stream)
         arrived = []  # already arrived vertex
         while len(stream) != 0:

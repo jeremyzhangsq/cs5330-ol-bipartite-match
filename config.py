@@ -6,7 +6,8 @@ match: result match list
 
 
 graph = dict()
-match = list()
+# key = srcV val = dstV each edge shows twices in match
+match = dict()
 
 '''
 global variable for alg1-3
