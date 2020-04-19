@@ -42,7 +42,10 @@ def read_network(fname):
             graph[groupid].append(userid)
     f.close()
 
-
+def is_match(match):
+    l = list(match.keys())
+    s = set(l)
+    return len(l)==len(s)
 
 if __name__ == '__main__':
     fid = int(sys.argv[1])
@@ -84,5 +87,6 @@ if __name__ == '__main__':
                     exit(-1)
                 arrived.append(vertex)
 
+    assert is_match(match)
     # for debug
     logger.debug("#Matched: %d tuples: %s" % (len(match), match))
