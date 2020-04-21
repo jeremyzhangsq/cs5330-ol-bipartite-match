@@ -69,7 +69,7 @@ if __name__ == '__main__':
         # simulate the general vertex arrival: the vertex comes with edges to previous neighbors
         stream = list(graph.keys())  # random vertex streaming
         # fix seed here
-        random.seed(1)
+        random.seed(time.time())
         random.shuffle(stream)
         arrived = []  # already arrived vertex
 
@@ -80,7 +80,7 @@ if __name__ == '__main__':
         
         start_time = time.time()
         if algs[aid] == "ALG3":
-            alg3.alg3(graph, stream, k=1.1997)
+            alg3_match = alg3.alg3(graph, stream, k=1.1997)
         else:
             while len(stream) != 0:
                 
@@ -104,16 +104,21 @@ if __name__ == '__main__':
                     exit(-1)
                 arrived.append(vertex)
 
-    assert is_match(match)
+    if algs[aid] == 'ALG3':
+        assert is_match(alg3_match)
+        num_match = len(alg3_match)
+    else:
+        assert is_match(match)
+        num_match = len(match)
     # for debug
     # logger.debug("#Matched: %d tuples: %s" % (len(match), match))
 
-    num_match = len(match)
+    # print(match)
     if algs[aid] != "OFFLINE":
         print('processing alg: OFFLINE')
         match.clear()
         baseline.offline()
         offline_num_match = len(match)
         # logger.debug("#Matched: %d tuples: %s" % (len(match), match))
-        print('num_match: %d'%(offline_num_match))
+        # print('num_match: %d'%(offline_num_match))
         print('competitive ratio: %f'%(num_match/offline_num_match))
