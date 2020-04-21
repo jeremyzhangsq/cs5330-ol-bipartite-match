@@ -8,10 +8,11 @@ import numpy
 prob_fuv = None
 prob_fwuv_total = None
 prob_fwuv = None
-monte_carlo_times = 20
+monte_carlo_times = 40
 vertex_list = []
 num_vertex = 0
 
+# 0.935484 0.903226 0.870968  1.000000 0.870968 0.838710
 def alg3(graph, stream, k=1.1997, monte_carlo=False, next_vertex=None):
     global vertex_list
     global prob_fwuv_total
