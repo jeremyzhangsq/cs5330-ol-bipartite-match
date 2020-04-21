@@ -52,7 +52,7 @@ def rank(vertex, neighbors):
         match[selectedVertex] = vertex
 
 
-def offline():
+def offline(uid_size):
     # bipartite graph
     lGraph = {}
     rGraph = {}
@@ -63,7 +63,7 @@ def offline():
     matchedVR = {}
     # 1. form the graph
     for vertex in graph:
-        if vertex[0] == 'u':
+        if vertex < uid_size:
             lGraph[vertex] = graph[vertex]
             matchedVL[vertex] = -1
         else:
