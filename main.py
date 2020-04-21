@@ -51,7 +51,7 @@ def is_match(match):
 if __name__ == '__main__':
     fid = int(sys.argv[1])
     aid = int(sys.argv[2])
-    files = ["revolution.txt","actor-movie.txt", "github.txt", "youtube.txt", "actor_movie_sample.txt"]
+    files = ["revolution.txt","crime.txt","actor-movie.txt", "github.txt", "youtube.txt", "actor_movie_sample.txt"]
     algs = ["GREEDY", "RANK", "OFFLINE", "ALG2", "ALG3"]
     endreg = "\r\n"
     delimiter = " "
