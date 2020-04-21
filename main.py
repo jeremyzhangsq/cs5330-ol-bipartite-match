@@ -19,9 +19,7 @@ logger.setLevel(logging.DEBUG)
 def read_network(fname):
     global x, y, graph
     f = open(fname, "r")
-    string = f.readline().rstrip(endreg)
-    # shape[0] is user size shape[1] is group size
-    shape = [int(s) for s in string.split(delimiter)]
+    string = f.readline()
     # adjacent list of the graph
     for l in f.readlines():
         line = l.rstrip(endreg)
