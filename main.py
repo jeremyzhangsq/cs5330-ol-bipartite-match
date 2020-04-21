@@ -19,9 +19,7 @@ logger.setLevel(logging.DEBUG)
 def read_network(fname):
     global x, y, graph
     f = open(fname, "r")
-    string = f.readline().rstrip(endreg)
-    # shape[0] is user size shape[1] is group size
-    shape = [int(s) for s in string.split(delimiter)]
+    string = f.readline()
     # adjacent list of the graph
     for l in f.readlines():
         line = l.rstrip(endreg)
@@ -51,7 +49,7 @@ def is_match(match):
 if __name__ == '__main__':
     fid = int(sys.argv[1])
     aid = int(sys.argv[2])
-    files = ["revolution.txt","actor-movie.txt", "github.txt", "youtube.txt", "actor_movie_sample.txt"]
+    files = ["revolution.txt","crime.txt", "ucforum.txt", "actor-movie.txt", "github.txt", "youtube.txt", "actor_movie_sample.txt"]
     algs = ["GREEDY", "RANK", "OFFLINE", "ALG2", "ALG3"]
     endreg = "\r\n"
     delimiter = " "
