@@ -30,6 +30,7 @@ x,y
 
 
 def alg1(v, ngbrs, beta=2.0, k=1):
+    # print('!')
     global x, y
     # Create a LP Minimization problem
     # print('alg1 beta: %f k: %f'%(beta, k))

@@ -80,7 +80,7 @@ if __name__ == '__main__':
         
         start_time = time.time()
         if algs[aid] == "ALG3":
-            alg3.main_alg3(graph, stream, k=1)
+            alg3.alg3(graph, stream, k=1.1997)
         else:
             while len(stream) != 0:
                 
