@@ -3,30 +3,32 @@ import alg1
 import numpy as np
 import math
 import time
+import numpy
 
-prob_fuv = dict()
-prob_fwuv = dict()
-prob_fwuv_total = dict()
-monte_carlo_times = 100
+prob_fuv = None
+prob_fwuv_total = None
+prob_fwuv = None
+monte_carlo_times = 40
 vertex_list = []
+num_vertex = 0
 
+# 0.935484 0.903226 0.870968  1.000000 0.870968 0.838710
 def alg3(graph, stream, k=1.1997, monte_carlo=False, next_vertex=None):
     global vertex_list
+    global prob_fwuv_total
+    global prob_fwuv
+    global prob_fuv
+    global num_vertex
     if not monte_carlo:
         print('init...')
         vertex_list = list(graph.keys())
-        print('vertex num: %d'%len(vertex_list))
-        for i in vertex_list:
-            prob_fuv[i] = dict()
-            prob_fwuv[i] = dict()
-            prob_fwuv_total[i] = dict()
-            for j in vertex_list:
-                prob_fuv[i][j] = 0
-                prob_fwuv[i][j] = dict()
-                prob_fwuv_total[i][j] = dict()
-                for l in vertex_list:
-                    prob_fwuv[i][j][l] = 0
-                    prob_fwuv_total[i][j][l] = 0
+        # print(vertex_list)
+        num_vertex = len(vertex_list)
+        print('num vertex: %d'%num_vertex)
+        i = 0
+        prob_fwuv_total = np.zeros((num_vertex, num_vertex, num_vertex))
+        prob_fwuv = np.zeros((num_vertex, num_vertex, num_vertex))
+        prob_fuv = np.zeros((num_vertex, num_vertex))
         
     # print(k)
     epsilon = (k - 1) /2
@@ -38,10 +40,10 @@ def alg3(graph, stream, k=1.1997, monte_carlo=False, next_vertex=None):
     global x, y
     match = dict()
     arrived_vertex = []
-    non_free_vertex = set()
+    free_vertx = set(vertex_list.copy())
 
     data_len = len(stream)
-    print_len = int(data_len/20)
+    print_len = 1 # int(data_len/200)
 
     start_time = time.time()
     for i in range(len(stream)):
@@ -53,7 +55,7 @@ def alg3(graph, stream, k=1.1997, monte_carlo=False, next_vertex=None):
 
         if not monte_carlo and i%print_len == 0:
             print('  processing stream: %d/%d time: %f'%(i, data_len, time.time()-start_time))
-            time.sleep(0.5)
+            # time.sleep(0.5)
             start_time = time.time()
 
         # new vertex and its neighbors
@@ -81,7 +83,8 @@ def alg3(graph, stream, k=1.1997, monte_carlo=False, next_vertex=None):
         # print(z_u_prob_list)
 
         if not monte_carlo:
-            for _ in range(monte_carlo_times):
+            for monte_i in range(monte_carlo_times):
+                # print('    monte i: %d'%monte_i)
                 alg3(graph, stream[:i], monte_carlo=True, next_vertex=v)
 
         # sample u2
@@ -101,26 +104,24 @@ def alg3(graph, stream, k=1.1997, monte_carlo=False, next_vertex=None):
                 if np.random.rand(1) < p:
                     u2 = None
 
-        if u1 is not None and u1 not in non_free_vertex:
+        if u1 is not None and u1 in free_vertx:
             match[u1] = v
             match[v] = u1
-            non_free_vertex.add(u1)
-            non_free_vertex.add(v)
-        elif u2 is not None and u2 not in non_free_vertex:
+            free_vertx.remove(u1)
+            free_vertx.remove(v)
+        elif u2 is not None and u2 in free_vertx:
             match[u1] = v
             match[v] = u1
-            non_free_vertex.add(u2)
-            non_free_vertex.add(v)
+            free_vertx.remove(u2)
+            free_vertx.remove(v)
 
         arrived_vertex.append(v)
 
     if monte_carlo:
-        for vertex in vertex_list:
-            if vertex not in non_free_vertex:
-                prob_fuv[vertex][next_vertex] += 1
-                for vertex2 in vertex_list:
-                    if vertex2 not in non_free_vertex:
-                        prob_fwuv[vertex2][vertex][next_vertex] += 1
-                    prob_fwuv_total[vertex2][vertex][next_vertex] += 1
+        for a in free_vertx:
+            prob_fuv[a][next_vertex] += 1
+            for b in free_vertx:
+                prob_fwuv[a][b][next_vertex] += 1
+        prob_fwuv_total[:][:][next_vertex] += 1
 
     return match

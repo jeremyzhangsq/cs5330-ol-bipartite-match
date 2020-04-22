@@ -21,12 +21,29 @@ def read_network(fname):
     f = open(fname, "r")
     string = f.readline()
     # adjacent list of the graph
-    for l in f.readlines():
+    uid_dict = dict()
+    gid_dict = dict()
+    uid = 0
+    gid = 0
+    line_list = f.readlines()
+    for l in line_list:
         line = l.rstrip(endreg)
         line = line.split(delimiter)
         # extract current edge <userid, groupid>
-        userid = "u"+line[0]
-        groupid = "g"+line[1]
+        if line[0] not in uid_dict:
+            uid_dict[line[0]] = uid
+            uid += 1
+        if line[1] not in gid_dict:
+            gid_dict[line[1]] = gid
+            gid += 1
+
+    uid_size = uid
+    print('uid_size: %d'%uid_size)
+    for l in line_list:
+        line = l.rstrip(endreg)
+        line = line.split(delimiter)
+        userid = uid_dict[line[0]]
+        groupid = gid_dict[line[1]] + uid_size
         x[(userid, groupid)] = 0 # init the fractional matching x as map with key = tuple(id,id) value = fractional prob
         # store current edge into adjacent list
         if userid not in graph:
@@ -40,6 +57,7 @@ def read_network(fname):
         else:
             graph[groupid].append(userid)
     f.close()
+    return uid_size
 
 def is_match(match):
     l = list(match.keys())
@@ -49,17 +67,17 @@ def is_match(match):
 if __name__ == '__main__':
     fid = int(sys.argv[1])
     aid = int(sys.argv[2])
-    files = ["revolution.txt","crime.txt", "ucforum.txt", "actor-movie.txt", "github.txt", "youtube.txt", "actor_movie_sample.txt"]
+    files = ["revolution.txt","crime.txt", "ucforum.txt", "actor-movie.txt", "github.txt", "youtube.txt", "actor_movie_sample.txt", "random_graph.txt"]
     algs = ["GREEDY", "RANK", "OFFLINE", "ALG2", "ALG3"]
     endreg = "\r\n"
     delimiter = " "
 
     # adjacent list of the graph
-    read_network("./dataset/" + files[fid])
+    uid_size = read_network("./dataset/" + files[fid])
 
     if algs[aid] == "OFFLINE":
         print('processing alg: ' + str(algs[aid]))
-        baseline.offline()
+        baseline.offline(uid_size)
         offline_num_match = len(match)
         print('num_match: %d'%(offline_num_match))
     else:
@@ -115,7 +133,7 @@ if __name__ == '__main__':
     if algs[aid] != "OFFLINE":
         print('processing alg: OFFLINE')
         match.clear()
-        baseline.offline()
+        baseline.offline(uid_size)
         offline_num_match = len(match)
         # logger.debug("#Matched: %d tuples: %s" % (len(match), match))
         # print('num_match: %d'%(offline_num_match))
