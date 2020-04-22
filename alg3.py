@@ -15,6 +15,7 @@ def alg3(graph, stream, k=1.1997, monte_carlo=False, next_vertex=None):
     if not monte_carlo:
         print('init...')
         vertex_list = list(graph.keys())
+        print('vertex num: %d'%len(vertex_list))
         for i in vertex_list:
             prob_fuv[i] = dict()
             prob_fwuv[i] = dict()
