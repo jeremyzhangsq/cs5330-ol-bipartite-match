@@ -93,8 +93,9 @@ if __name__ == '__main__':
         data_len = len(stream)
         print_len = int(len(stream)/20)
         i = 0
-        
+    
         start_time = time.time()
+        total_start_time = start_time
         if algs[aid] == "ALG3":
             alg3_match = alg3.alg3(graph, stream, k=1.1997)
         else:
@@ -119,6 +120,7 @@ if __name__ == '__main__':
                 else:
                     exit(-1)
                 arrived.append(vertex)
+        print('total time: %f'%(time.time()-total_start_time))
 
     if algs[aid] == 'ALG3':
         assert is_match(alg3_match)

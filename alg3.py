@@ -8,7 +8,7 @@ import numpy
 prob_fuv = None
 prob_fwuv_total = None
 prob_fwuv = None
-monte_carlo_times = 40
+monte_carlo_times = 15
 vertex_list = []
 num_vertex = 0
 
@@ -66,7 +66,7 @@ def alg3(graph, stream, k=1.1997, monte_carlo=False, next_vertex=None):
         z_u = {}
         normal_factor = 0
         for u in neighbor_v:
-            z_u[u] = x[(u, v)]/(prob_fuv[u][v]/monte_carlo_times+1/monte_carlo_times)
+            z_u[u] = x[(u, v)]/(prob_fuv[u][v]/monte_carlo_times+1/monte_carlo_times)*2
             normal_factor += z_u[u]
         if normal_factor > 1.0:
             for u in neighbor_v:
