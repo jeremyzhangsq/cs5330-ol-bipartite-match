@@ -3,7 +3,7 @@ import random
 
 if __name__ == '__main__':
     num_vertex = 100
-    expected_num_edges = 100
+    expected_num_edges = 400
     p = expected_num_edges / (num_vertex*num_vertex/2)
 
     graph = np.zeros((num_vertex, num_vertex))
